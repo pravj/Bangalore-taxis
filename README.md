@@ -1,5 +1,9 @@
-Group by vehicle type
-=====================
+Bangalore-taxis
+===============
+
+> Code sample used in my post, [Jump in to ride all the Bangalore taxis, at once.](http://pravj.github.io/blog/bangalore-taxis/)
+
+## Group by vehicle type
 
 ```
 r.db('test').table('warehouse')
@@ -10,8 +14,7 @@ r.db('test').table('warehouse')
 	.count()
 ```
 
-Insertion of 'index' field
-==========================
+## Insertion of 'index' field
 
 ```
 r.db('test').table('warehouse').update({index: r.row('major').coerceTo("NUMBER").mul(4)})
@@ -19,8 +22,7 @@ r.db('test').table('warehouse').update({index: r.row('index').add(r.row('minor')
 r.db('test').table('warehouse').update({index: r.row('index').add(-4)})
 ```
 
-Cab count distribution by type (per quarter-hour)
-=================================================
+## Cab count distribution by type (per quarter-hour)
 
 ```
 r.db('test').table('warehouse')
@@ -32,8 +34,7 @@ r.db('test').table('warehouse')
 	.count()
 ```
 
-Rise of the Guardians(Vehicles)
-===============================
+## Rise of the Guardians(Vehicles)
 
 ```
 r.db('test').table('warehouse')
@@ -43,8 +44,7 @@ r.db('test').table('warehouse')
 	.orderBy('cab_time')
 ```
 
-The cab who stayed there
-========================
+## The cab who stayed there
 
 > Co-ordinates of the cab, and the time when it moved last
 
@@ -59,8 +59,9 @@ r.db('test').table('warehouse')
 
 >
 
-Apperance Defragmentation Graph (per cab)
-=========================================
+## Apperance Defragmentation Graph (per cab)
+
+> Not using this because it would result in a 44 x 897 matrix, which is too large to properly analyse in small screens (mobile devices).
 
 ```
 r.db('test').table('warehouse')
@@ -71,8 +72,7 @@ r.db('test').table('warehouse')
 	.distinct()
 ```
 
-Cab which was spotted most
-==========================
+## Cab which was spotted most
 
 ```
 r.db('test').table('warehouse')
@@ -86,8 +86,7 @@ r.db('test').table('warehouse')
 	.orderBy(r.desc('reduction'))
 ```
 
-Cab which travelled most
-========================
+## Cab which travelled most
 
 ```
 r.db('test').table('warehouse')
@@ -98,8 +97,7 @@ r.db('test').table('warehouse')
 	.orderBy('index')
 ```
 
-Cab distribution by location (per quarter-hour)
-===============================================
+## Cab distribution by location (per quarter-hour)
 
 ```
 r.db('test').table('warehouse')
@@ -111,9 +109,9 @@ r.db('test').table('warehouse')
   .orderBy(r.row('reduction')('index'))
 ```
 
-Cab density index
-=================
+## Cab density index
 
+```
 r.db('taxis').table('datacenter')
     .filter({available: true})
     .pluck('cab_lat', 'cab_lng')
@@ -123,3 +121,7 @@ r.db('taxis').table('datacenter')
             .includes(r.point(instance('cab_lat'), instance('cab_lat')))
     })
     .count(true)
+```
+
+## LICENSE
+MIT © [Pravendra Singh](http://pravj.github.io)	
